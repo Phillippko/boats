@@ -7,8 +7,10 @@ const SEA_HEIGHT = 300;
 const SEA_LEVEL = SCREEN_HEIGHT - SEA_HEIGHT;
 const TIME_SPEED = 100;
 const LEVEL_CATS_COUNT = 10;
-const STARTING_SHIP_LEVEL = 10
-;
+const LEVELS = [[2, 10, 3, 6, 5, 4, 6, 4]];
+
+const STARTING_SHIP_LEVEL = 10;
+
 interactableObjects = [];
 let clicked = null;
 
@@ -29,11 +31,10 @@ class Interactable {
         this.width = width;
         this.height = height;
         this.fixed = fixed;
-        this.sumWeight = weight;
         this.weight = weight;
+        this.interactedWith = [];
         this.offsetX = 0;
         this.offsetY = 0;
-        this.contactWith = null;
         this.createDivs();
     }
 
@@ -54,18 +55,24 @@ class Interactable {
         this.div.style.top = this.y;
         if (!this.fixed) {
             this.addMouseMovable();
+            this.header = document.createElement("div");
+            this.header.style.position = 'relative';
+            this.div.appendChild(this.header);
+            this.header.style.top = "-10px";
+            this.header.style.left = "-10px";
         }
-        this.header = document.createElement("div");
-        this.header.style.position = 'relative';
-        this.div.appendChild(this.header);
-        this.header.top = -10;
     }
 
     addMouseMovable() {
         this.div.addEventListener('mousedown', e => {
             clicked = this;
             this.clicked = true;
-            this.contactWith = null;
+            interactableObjects.forEach(x => {
+                    let index = x.interactedWith.indexOf(this);
+                    if (index !== -1)
+                        x.interactedWith.splice(index, 1);
+                }
+            );
         });
         this.div.addEventListener('mouseup', e => {
             clicked = null;
@@ -74,40 +81,55 @@ class Interactable {
     }
 
     processObject() {
-        this.header.textContent = this.sumWeight;
-        if(this.contactWith != null){
-            this.updatePosition(this.x, this.contactWith.y - this.height);
+        if(this.clicked)
             return;
-        }
-        if (!this.clicked && this.contactWith == null) {
-            this.changeSpeed();
-            this.updatePosition(this.x, this.y + this.speed);
-        }
         let flag = false;
+        this.sumWeight = this.weight;
+        this.interactedWith.forEach(x => this.sumWeight += x.sumWeight);
+        if(!this.fixed)
+            this.header.textContent = this.weight;
+
         interactableObjects.forEach(other => {
-            if (other.checkBorders(this) && this.y < other.y) {
-                this.speed = other.speed;
-                this.updatePosition(this.x, other.y - this.height);
-                other.addInteraction(this);
+            if (other.interactedWith.includes(this)) {
                 flag = true;
             }
         });
-        if (!flag) {
-            this.contactWith = null;
-            this.deleteInteractions();
+        if (flag)
+            return;
+        interactableObjects.forEach(other => {
+            if(other.clicked)
+                return;
+            if (other.checkBorders(this) && this.y < other.y) {
+                other.interactedWith.push(this)
+                flag = true;
+            }
+        });
+        if(flag)
+            return;
+        if (!this.clicked && !flag) {
+            this.changeSpeed();
+            this.updatePosition(this.x, this.y + this.speed);
         }
     }
 
     updatePosition(x, y) {
+        let oldX = this.x;
+        let oldY = this.y;
         this.x = x;
         this.y = y;
         this.div.style.top = this.y;
         this.div.style.left = this.x;
+        let offsetX;
+        let offsetY;
+        this.interactedWith.forEach(interacted => {
+            offsetX = this.x - oldX;
+            offsetY = this.y - oldY;
+            interacted.updatePosition(interacted.x + offsetX, interacted.y + offsetY);
+        });
     }
 
 
     addInteraction(interacted) {
-        interacted.contactWith = this;
         this.sumWeight += interacted.sumWeight;
         interacted.y = this.y - interacted.height;
     }
@@ -146,27 +168,38 @@ class Interactable {
     }
 }
 
-async function update() {
+async function
+
+update() {
     timer++;
+    level = 0;
     if (cat_count < LEVEL_CATS_COUNT && timer % TIME_SPEED === 0)
-        addInteractableCat();
+        addInteractableCat(level);
     interactableObjects.forEach(x => x.processObject());
 }
 
-function addInteractable(x, y, width, height, weight, fixed, image) {
+function
+
+addInteractable(x, y, width, height, weight, fixed, image) {
     object = new Interactable(x, y, width, height, weight, fixed, image);
     interactableObjects.push(object);
 }
 
-function addInteractableCat() {
+function
+
+addInteractableCat(level) {
+    addInteractable(SCREEN_WIDTH / 2, shipLevel, 60, 60, LEVELS[level][cat_count], false, CAT_IMAGE);
     cat_count++;
-    addInteractable(SCREEN_WIDTH / 2, shipLevel, 60, 60, 10, false, CAT_IMAGE);
 }
 
-let timer = 0;
-let cat_count = 0;
+let
+    timer = 0;
+let
+    cat_count = 0;
 
-async function time() {
+async function
+
+time() {
     let i = 0;
     while (i < 10000) {
         i++;
@@ -174,7 +207,9 @@ async function time() {
     }
 }
 
-function addWater() {
+function
+
+addWater() {
     let div = document.createElement("div");
     document.body.appendChild(div);
     div.style.position = "absolute";
@@ -186,9 +221,12 @@ function addWater() {
 
 main();
 
-function main() {
+function
+
+main() {
     shipLevel = STARTING_SHIP_LEVEL;
-    addInteractable(SCREEN_WIDTH / 4, SEA_LEVEL - 20, 300, 100, 1000, true, "woodFin.jpg");
+    addInteractable(SCREEN_WIDTH / 4, SEA_LEVEL - 20, 300, 100, 0, true, "woodFin.jpg");
+    addInteractable(SCREEN_WIDTH / 2, SEA_LEVEL - 20, 300, 100, 0, true, "woodFin.jpg");
     addWater();
     time();
 
