@@ -1,0 +1,13 @@
+.water{
+    background: aqua;
+    z-index: 1;
+}
+
+/*body{*/
+/*background-image: url('water.gif');*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: 100% 100%;*/
+/*}*/
+body{
+    overflow-y: hidden
+}
