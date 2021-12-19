@@ -3,11 +3,18 @@ const SCREEN_WIDTH = window.screen.availWidth;
 
 const CAT_IMAGE = "cat.gif";
 
-const SEA_HEIGHT = 300;
+const SEA_HEIGHT = 100;
 const SEA_LEVEL = SCREEN_HEIGHT - SEA_HEIGHT;
 const TIME_SPEED = 100;
 const LEVEL_CATS_COUNT = 10;
 const LEVELS = [[2, 10, 3, 6, 5, 4, 6, 4]];
+const EL_SIZE = 20
+const LEVELS_LIST = [1, 2, 3, 4, 5];
+const DIFFICULTY_LIST = ["EASY", "MEDIUM", "HARD"];
+
+const AUTHORIZATION_TEXT = "Enter your name";
+const DIFFICULTY_TEXT = "Select difficulty";
+const LEVEL_TEXT = "Select level";
 
 const STARTING_SHIP_LEVEL = 10;
 
@@ -20,7 +27,6 @@ document.body.addEventListener('mousemove', e => {
     }
     clicked.updatePosition(e.clientX - clicked.offsetX, e.clientY - clicked.offsetY);
 });
-
 
 class Interactable {
     constructor(x, y, width, height, weight, fixed, image) {
@@ -81,12 +87,12 @@ class Interactable {
     }
 
     processObject() {
-        if(this.clicked)
+        if (this.clicked)
             return;
         let flag = false;
         this.sumWeight = this.weight;
         this.interactedWith.forEach(x => this.sumWeight += x.sumWeight);
-        if(!this.fixed)
+        if (!this.fixed)
             this.header.textContent = this.weight;
 
         interactableObjects.forEach(other => {
@@ -97,14 +103,14 @@ class Interactable {
         if (flag)
             return;
         interactableObjects.forEach(other => {
-            if(other.clicked)
+            if (other.clicked)
                 return;
             if (other.checkBorders(this) && this.y < other.y) {
                 other.interactedWith.push(this)
                 flag = true;
             }
         });
-        if(flag)
+        if (flag)
             return;
         if (!this.clicked && !flag) {
             this.changeSpeed();
@@ -219,11 +225,65 @@ addWater() {
     div.style.height = screen.height;
 }
 
-main();
+function createDiv(TEXT, list) {
+    let div = document.createElement("div");
+    document.body.appendChild(div);
+    div.classList.add("menuDiv");
 
-function
+    function buttonOnClick() {
+    }
 
-main() {
+    if (list != null) {
+        for (let i = 0; i < list.length; i++) {
+            let elementDiv = document.createElement("button");
+            div.appendChild(elementDiv);
+            elementDiv.classList.add("selectionElement");
+            elementDiv.style.position = "relative";
+            elementDiv.style.top = i * EL_SIZE + "px";
+            elementDiv.textContent = list[i];
+            elementDiv.onclick = buttonOnClick();
+        }
+    }
+    return div;
+}
+
+startGame();
+
+function startGame() {
+    function getUserName() {
+        let div = createDiv(AUTHORIZATION_TEXT, null);
+        return undefined;
+    }
+
+    // let userName = getUserName();
+
+    function getLevel(userName) {
+        let div = createDiv(LEVEL_TEXT, LEVELS_LIST);
+
+        document.body.removeChild(div);
+        return undefined;
+    }
+
+    // let level = getLevel(userName);
+
+    function getDifficulty() {
+        createDiv(DIFFICULTY_TEXT, DIFFICULTY_LIST);
+        return undefined;
+    }
+
+    // let difficulty = getDifficulty();
+
+    function getColor() {
+        return undefined;
+    }
+
+    let color, userName, difficulty, level;
+    main(level, difficulty, userName, color);
+
+}
+
+
+function main(level, difficulty, userName, color) {
     shipLevel = STARTING_SHIP_LEVEL;
     addInteractable(SCREEN_WIDTH / 4, SEA_LEVEL - 20, 300, 100, 0, true, "woodFin.jpg");
     addInteractable(SCREEN_WIDTH / 2, SEA_LEVEL - 20, 300, 100, 0, true, "woodFin.jpg");
