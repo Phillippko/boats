@@ -1,6 +1,6 @@
 class Cat extends Interactable {
     constructor(x, y, width, height, weight, image) {
-        super(x, y, width, height, image, -5, -5);
+        super(x, y, width, height, image, 15, 15, null);
         this.weight = weight;
         this.addMouseMovable();
         this.health = 2;

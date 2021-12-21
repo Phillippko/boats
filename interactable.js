@@ -1,5 +1,5 @@
 class Interactable {
-    constructor(x, y, width, height, image, headerOffsetX, headerOffsetY) {
+    constructor(x, y, width, height, image, headerOffsetX, headerOffsetY, headerImage) {
         this.image = image;
         this.speed = 0;
         this.x = x;
@@ -9,7 +9,7 @@ class Interactable {
         this.offsetX = 0;
         this.offsetY = 0;
         this.createDivs();
-        this.addHeader(headerOffsetX, headerOffsetY);
+        this.addHeader(headerOffsetX, headerOffsetY, headerImage);
         this.maxFloatingSpeed = -1;
         this.weight = 0;
         this.sumWeight = 0;
@@ -55,7 +55,7 @@ class Interactable {
             this.speed -= 0.7;
     }
 
-    addHeader(offsetX, offsetY) {
+    addHeader(offsetX, offsetY, headerImage) {
         this.header = document.createElement("div");
         this.header.style.position = 'absolute';
         this.header.classList.add("header");
@@ -63,6 +63,9 @@ class Interactable {
         this.header.style.top = offsetY;
         this.div.appendChild(this.header);
         this.header.textContent = "";
+        if(headerImage != null)
+            this.header.style.backgroundImage = "url('" + headerImage + "')";
+        else this.header.style.background = 0;
 
     }
 }

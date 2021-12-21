@@ -18,8 +18,10 @@ const LEVELS = [
 ];
 const FRAMERATE = 24;
 const USERNAME_TEXT_PART_ONE = "Once upon a time the ship, taking a family of Pusheen cats home, started to sink. " +
-    "There were screams of terror, and prayers of forgiveness, and only, our brave captain ";
-const USERNAME_TEXT_PART_TWO = " remained calm. Now, tell us the story of your heroism!";
+    "There were screams of terror, and prayers of forgiveness, and only you, our brave captain ";
+const USERNAME_TEXT_PART_TWO = " remained calm. Now, tell us the story of your heroism! " +
+    "Your task is to balance cats on two logs of wood. Time is restricted, Pusheen's live in water too. Good luck! " +
+    "Press and hold left mouse button to drag cats. Numbers near heads are their weights";
 const BUTTON_TEXT = "PUSH";
 
 //menu settings
@@ -64,7 +66,7 @@ function endGame() {
         - Math.abs(IDEAL_WEIGHT[level] - logs[0].sumWeight)
         - Math.abs(IDEAL_WEIGHT[level] - logs[1].sumWeight);
     userPoints[level] = Math.max(gamePoints, userPoints[level]);
-    if (gamePoints > MIN_POINTS && userLevels < LEVELS.length - 1)
+    if (logs[0].sumWeight === logs[1].sumWeight  && userLevels < LEVELS.length - 1)
         userLevels++;
     localStorage.setItem(userName + "-levels", userLevels);
     localStorage.setItem(userName + "-points", userPoints);
@@ -73,7 +75,7 @@ function endGame() {
 }
 
 async function update() {
-
+    shipLevel += SEA_LEVEL/ (TIME_LIMIT[level]  * FRAMERATE);
     frame++;
     if (frame / 24 >= TIME_LIMIT[level])
         endGame();
@@ -118,6 +120,8 @@ async function time() {
 }
 
 function startGame() {
+    document.getElementById("boat").style.transitionDuration = TIME_LIMIT[level] + "s";
+    document.getElementById("boat").classList.add("sinking");
     time();
     addLog(SCREEN_WIDTH / 10, SEA_LEVEL - 150, 300, 100, "wood3.png");
     addLog(SCREEN_WIDTH / 3, SEA_LEVEL - 150, 300, 100, "wood3.png");
@@ -133,9 +137,12 @@ function createUser() {
 }
 
 function main() {
-    getUserName();
-    shipLevel = STARTING_SHIP_LEVEL;
+    // getUserName();
     addWater();
-    document.getElementById("boat").style.bottom = 0;
+    document.getElementById("boat").style.bottom = 100;
+    shipLevel = STARTING_SHIP_LEVEL;
+    showMenu();
+
+
 }
 

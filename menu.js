@@ -2,7 +2,7 @@ function addElement(parent, type, text, className) {
     let element = document.createElement(type);
     element.classList.add(className);
     parent.appendChild(element);
-    if(text !== null)
+    if (text !== null)
         element.textContent = text;
     return element;
 }
@@ -10,7 +10,6 @@ function addElement(parent, type, text, className) {
 function createDiv(TEXT, openLevels) {
     let menu = addElement(document.body, "div", null, "cloud");
     let menuDiv = addElement(menu, "div", null, "menuDiv");
-    // let headerDiv = addElement(menuDiv, "div", TEXT, "menuHeader");
 
     if (openLevels != null) {
         let chooseLevelText = addElement(menuDiv, "div", "Choose level: ", "text");
@@ -41,8 +40,27 @@ function createDiv(TEXT, openLevels) {
     return menuDiv;
 }
 
+function showMenu() {
+    let menuDiv = addElement(document.body, "div", null, "startMenuDiv");
+    // addElement(menuDiv, "div", MENU_TEXT, "menuText");
+    menuDiv.onclick = function () {
+        document.body.removeChild(menuDiv);
+        document.getElementById("boat").classList.add("trans");
+        let audio = new Audio('ost.mp3');
+        audio.play();
+        setTimeout(getUserName, 9000);
+    };
+}
+
+function gameMenu(){
+    let menuDiv = addElement(document.body, "div", null, "gameMenuDiv");
+    addElement(menuDiv, "div",null,"timeDiv");
+
+}
 function getUserName() {
     let div = createDiv(AUTHORIZATION_TEXT, null);
+
+
 }
 
 let userName;

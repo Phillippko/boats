@@ -1,6 +1,6 @@
 class Log extends Interactable {
     constructor(x, y, width, height, image) {
-        super(x, y, width, height, image, -15, -15);
+        super(x, y, width, height, image, -40, -40, "circle.png");
         this.interactedWith = [];
     }
 

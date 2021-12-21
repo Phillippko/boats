@@ -7,39 +7,71 @@
 body {
     overflow-y: hidden;
     background-image: url("sky2.jpg");
-    margin:0;
+    margin: 0;
     background-size: 100% 100%;
 }
-.boat{
-    width:100%;
+
+.boat {
+    width: 30%;
     position: absolute;
+}
+
+.trans {
+    transition: 8s ease-in;
+    transform: scale(2.5) translate(42%, -25%);
+}
+.sinking{
+    transition-timing-function: ease-in;
+    transform: scale(2.5) translate(42%, 15%);
+}
+
+
+.startMenuDiv {
+    position: relative;
+    top: 40%;
+    left: 40%;
+    width: 10%;
+    /*background: white;*/
+    /*opacity: 0.7;*/
+    background: url("pushToStart.png");
+    background-size: 100% 100%;
+}
+
+.startMenuDiv:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
 }
 
 .selectionElement {
     /*left: 50%;*/
-    width: 30%;
-    height: 10%;
-    margin:15px;
-    background: 0;
-    background-image: url("scroll-res.png");
+    width: 15%;
+    height: 5%;
+    border-radius: 30%;
+    margin: 15px;
+    background: white;
+    opacity: 0.4;
+    /*background-image: url("scroll-res.png");*/
     background-size: 100% 100%;
     border: 0;
     outline: unset;
     display: inline-block;
 }
 
-.cloud{
+.cloud {
     vertical-align: middle;
-    background: url("scroll3-res.png");
+    background: url("paper.png");
+    opacity: 0.85;
     z-index: 2;
     background-size: 100% 100%;
     width: 50%;
     height: 80%;
-    top:5%;
-    left:20%;
-    margin:0;
+    top: 5%;
+    left: 20%;
+    margin: 0;
     position: absolute;
 }
+
 /*.menuHeader{*/
 /*    background: url("header.png");*/
 /*    background-size: 100% 100%;*/
@@ -63,15 +95,17 @@ body {
     width: 80%;
     height: 70%;
 }
-
-.inputElement{
+.inputElement {
+    border-radius: 30%;
     width: 20%;
+    text-align: center;
     height: 5%;
     display: inline-block;
-    border:0;
+    border: 0;
     opacity: 0.5;
 }
-.menuText{
+
+.menuText {
     display: inline;
 }
 
@@ -87,13 +121,24 @@ div {
     transform: scale(-1, 1);
 }
 
+.header {
+    /*background: 0;*/
+    /*background-image: url("circle.png");*/
+    vertical-align: middle;
+    line-height: 40px;
+    background-size: 100% 100%;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+}
+
 .buttonElement {
     position: absolute;
     background-size: 100% 100%;
     /*background-image: url("stamp.png");*/
-    border:0;
-    bottom:15%;
-    right:15%;
+    border: 0;
+    bottom: 15%;
+    right: 15%;
     width: 15%;
     height: 15%;
     text-align: center;
