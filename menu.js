@@ -1,45 +1,44 @@
-function createDiv(TEXT, list) {
-    let cloud = document.createElement("div");
-    cloud.classList.add("cloud");
-    document.body.appendChild(cloud);
-    let div = document.createElement("div");
-    cloud.appendChild(div);
-    div.classList.add("menuDiv");
+function addElement(parent, type, text, className) {
+    let element = document.createElement(type);
+    element.classList.add(className);
+    parent.appendChild(element);
+    if(text !== null)
+        element.textContent = text;
+    return element;
+}
 
-    let textDiv = document.createElement("div");
-    textDiv.textContent = TEXT;
-    div.appendChild(textDiv);
-    if (list != null) {
-        for (let i = 0; i < list.length; i++) {
-            let elementDiv = document.createElement("button");
-            div.appendChild(elementDiv);
-            elementDiv.classList.add("selectionElement");
-            elementDiv.style.position = "absolute";
-            elementDiv.style.top = 20 + i * EL_SIZE + "px";
-            elementDiv.textContent = list[i];
+function createDiv(TEXT, openLevels) {
+    let menu = addElement(document.body, "div", null, "cloud");
+    let menuDiv = addElement(menu, "div", null, "menuDiv");
+    // let headerDiv = addElement(menuDiv, "div", TEXT, "menuHeader");
+
+    if (openLevels != null) {
+        let chooseLevelText = addElement(menuDiv, "div", "Choose level: ", "text");
+
+        for (let i = 0; i < openLevels; i++) {
+            let elementDiv = addElement(menuDiv, "button", i + 1, "selectionElement");
+            let levelDescriptionDiv = addElement(menuDiv, "p",
+                "Family size: " + LEVELS[i].length + ", Level time: " + TIME_LIMIT[i],
+                "menuText");
             elementDiv.onclick = function () {
                 level = elementDiv.textContent - 1;
-                console.log(level);
-                document.body.removeChild(cloud);
+                document.body.removeChild(menu);
                 startGame();
             };
         }
     } else {
-        let elementInput = document.createElement("input");
-        div.appendChild(elementInput);
-        elementInput.classList.add("inputElement");
-        let elementButton = document.createElement("button");
-        elementButton.classList.add("buttonElement");
-        let userName = "";
-        div.appendChild(elementButton);
-        elementButton.onclick = function () {
+        let userNamePartOne = addElement(menuDiv, "p", USERNAME_TEXT_PART_ONE, "menuText");
+        let elementInput = addElement(menuDiv, "input", null, "inputElement");
+        let userNamePartTwo = addElement(menuDiv, "p", USERNAME_TEXT_PART_TWO, "menuText");
+        let button = addElement(menu, "div", BUTTON_TEXT, "buttonElement");
+        button.onclick = function () {
             userName = elementInput.value;
             console.log(userName);
-            document.body.removeChild(cloud);
+            document.body.removeChild(menu);
             getLevel();
         };
     }
-    return div;
+    return menuDiv;
 }
 
 function getUserName() {
@@ -48,16 +47,16 @@ function getUserName() {
 
 let userName;
 let userLevels, userPoints;
+
 function getLevel() {
 
-    userPoints =  localStorage.getItem(userName + "-points");
+    userPoints = localStorage.getItem(userName + "-points");
     userLevels = localStorage.getItem(userName + "-levels");
     if (userPoints == null) {
         console.log("user is null");
         createUser();
-    }
-    else userPoints = userPoints.split(',');
+    } else userPoints = userPoints.split(',');
 
-    createDiv(LEVEL_TEXT, LEVELS_LIST);
+    createDiv(LEVEL_TEXT, userLevels);
     return undefined;
 }

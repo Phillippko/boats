@@ -1,46 +1,78 @@
 .water {
-    background: aqua;
+    background-image: url("water2.gif");
     z-index: 1;
-    opacity: 70%;
+    opacity: 90%;
 }
 
-/*body{*/
-/*background-image: url('water.gif');*/
-/*    background-repeat: no-repeat;*/
-/*    background-size: 100% 100%;*/
-/*}*/
 body {
-    overflow-y: hidden
+    overflow-y: hidden;
+    background-image: url("sky2.jpg");
+    margin:0;
+    background-size: 100% 100%;
+}
+.boat{
+    width:100%;
+    position: absolute;
 }
 
 .selectionElement {
-    left: 50%;
+    /*left: 50%;*/
     width: 30%;
     height: 10%;
+    margin:15px;
+    background: 0;
+    background-image: url("scroll.png");
+    background-size: 100% 100%;
+    border: 0;
+    outline: unset;
+    display: inline-block;
 }
 
 .cloud{
-    background: url("menu.png");
+    vertical-align: middle;
+    background: url("scroll3.png");
+    z-index: 2;
     background-size: 100% 100%;
-    width: 60%;
-    height: 40%;
-}
-.menuDiv {
-    position: relative;
-    top:40%;
-    left:25%;
     width: 50%;
-    height: 50%;
+    height: 80%;
+    top:5%;
+    left:20%;
+    margin:0;
+    position: absolute;
+}
+/*.menuHeader{*/
+/*    background: url("header.png");*/
+/*    background-size: 100% 100%;*/
+/*    width: 100%;*/
+/*    height: 30%;*/
+/*    top:-50%;*/
+/*    left:0;*/
+/*    position: absolute;*/
+/*    text-align: center;*/
+/*    vertical-align: middle;*/
+/*    line-height: 40px;*/
+/*    font-size: 20px;*/
+/*    z-index: -1;*/
+/*}*/
+.menuDiv {
+    text-align: left;
+    vertical-align: middle;
+    position: absolute;
+    /*top:25%;*/
+    padding: 11%;
+    width: 80%;
+    height: 70%;
 }
 
 .inputElement{
-    position: relative;
-    top:25%;
-    left:-10%;
-    width: 40%;
-    max-width: 300px;
-    height: 15%;
-    max-height: 100px;
+    width: 20%;
+    height: 5%;
+    display: inline-block;
+    border:0;
+    opacity: 0.5;
+}
+.menuText{
+    display: inline;
 }
 
 div {
@@ -56,8 +88,15 @@ div {
 }
 
 .buttonElement {
-    height: 30px;
-    width: 100px;
-    position: relative;
-    top:25%;
+    position: absolute;
+    background-size: 100% 100%;
+    /*background-image: url("stamp.png");*/
+    border:0;
+    bottom:15%;
+    right:15%;
+    width: 15%;
+    height: 15%;
+    text-align: center;
+    line-height: 150px;
+    vertical-align: middle;
 }

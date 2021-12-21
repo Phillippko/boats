@@ -13,7 +13,7 @@ class Cat extends Interactable {
         if (this.clicked)
             return;
 
-        if(this.y + this.height > SEA_LEVEL && frame / FRAMERATE % SECONDS_TO_SPAWN[level] === 0)
+        if (this.y + this.height > SEA_LEVEL && frame / FRAMERATE % SECONDS_TO_SPAWN[level] === 0)
             this.health--;
         let flag = false;
 
@@ -34,21 +34,21 @@ class Cat extends Interactable {
             }
         });
         if (!this.clicked && !flag) {
-            if(this.health <= 0){
+            if (this.health <= 0) {
                 this.speed = 3;
-            }
-            else this.changeSpeed();
+            } else this.changeSpeed();
             this.updatePosition(this.x, this.y + this.speed);
         }
     }
-
 
 
     addMouseMovable() {
         this.div.addEventListener('mousedown', e => {
             clicked = this;
             this.clicked = true;
-            this.interactedWith = [];
+            this.offsetX = e.clientX - this.x;
+            this.offsetY = e.clientY - this.y;
+            this.updatePosition(e.clientX - clicked.offsetX, e.clientY - clicked.offsetY);
             logs.forEach(x => {
                     let index = x.interactedWith.indexOf(this);
                     if (index !== -1)
@@ -57,6 +57,7 @@ class Cat extends Interactable {
             );
         });
         this.div.addEventListener('mouseup', e => {
+            clicked.updatePosition(e.clientX - clicked.offsetX, e.clientY - clicked.offsetY);
             clicked = null;
             this.clicked = false;
         });

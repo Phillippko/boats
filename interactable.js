@@ -18,11 +18,11 @@ class Interactable {
     createDivs() {
         this.div = document.createElement('div');
         console.log(this.image);
+        this.div.style.background = 0;
         if (this.image != null)
             this.div.style.backgroundImage = "url('" + this.image + "')";
         else
             this.div.style.backgroundColor = 'red';
-
         this.div.style.backgroundSize = "100% 100%";
         this.div.style.position = 'absolute';
         document.body.appendChild(this.div);
