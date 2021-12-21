@@ -1,6 +1,7 @@
 .water{
     background: aqua;
     z-index: 1;
+    opacity: 70%;
 }
 
 /*body{*/
@@ -13,10 +14,23 @@ body{
 }
 
 .selectionElement{
-
+    left: 50%;
+    width: 30%;
+    height: 10%;
 }
 .menuDiv{
     position: absolute;
-    top:50%;
-    left:50%;
+    top:25%;
+    left:25%;
+    width: 25%;
+    height: 25%;
+    background-color: yellow;
+}
+div{
+    user-select: none;
+}
+
+.buttonElement{
+    height: 10%;
+    width: 10%;
 }
