@@ -1,7 +1,8 @@
 class Log extends Interactable {
-    constructor(x, y, width, height, image) {
+    constructor(x, y, width, height, image, maxCats) {
         super(x, y, width, height, image, -40, -40, "circle.png");
         this.interactedWith = [];
+        this.maxCats = maxCats;
     }
 
     processObject(){

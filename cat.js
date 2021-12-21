@@ -27,7 +27,7 @@ class Cat extends Interactable {
         logs.forEach(other => {
             if (other.clicked)
                 return;
-            if (other.checkBorders(this) && this.y < other.y) {
+            if (other.checkBorders(this) && other.interactedWith.length < other.maxCats) {
                 this.updatePosition(this.x, other.y - this.height);
                 other.interactedWith.push(this)
                 flag = true;

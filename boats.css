@@ -18,7 +18,7 @@ body {
 
 .trans {
     transition: 8s ease-in;
-    transform: scale(2.5) translate(42%, -25%);
+    transform: scale(2.5) translate(42%, -20%);
 }
 .sinking{
     transition-timing-function: ease-in;
@@ -29,11 +29,11 @@ body {
 .startMenuDiv {
     position: relative;
     top: 40%;
-    left: 40%;
+    left: 45%;
     width: 10%;
     /*background: white;*/
     /*opacity: 0.7;*/
-    background: url("pushToStart.png");
+    background: url("start.png");
     background-size: 100% 100%;
 }
 
@@ -60,14 +60,14 @@ body {
 
 .cloud {
     vertical-align: middle;
-    background: url("paper.png");
-    opacity: 0.85;
+    background: url("scroll5.png");
+    opacity: 1;
     z-index: 2;
     background-size: 100% 100%;
     width: 50%;
     height: 80%;
     top: 5%;
-    left: 20%;
+    left: 25%;
     margin: 0;
     position: absolute;
 }
@@ -91,8 +91,8 @@ body {
     vertical-align: middle;
     position: absolute;
     /*top:25%;*/
-    padding: 11%;
-    width: 80%;
+    padding: 15%;
+    width: 70%;
     height: 70%;
 }
 .inputElement {
@@ -131,7 +131,17 @@ div {
     width: 40px;
     text-align: center;
 }
-
+.mute{
+    border: 0;
+    background: 0;
+    background-image: url("muted.png");
+    height: 50px;
+    background-size: 100% 100%;
+    width: 50px;
+    position: absolute;
+    top:50px;
+    left: 50px;
+}
 .buttonElement {
     position: absolute;
     background-size: 100% 100%;
