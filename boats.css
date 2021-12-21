@@ -1,4 +1,4 @@
-.water{
+.water {
     background: aqua;
     z-index: 1;
     opacity: 70%;
@@ -9,28 +9,55 @@
 /*    background-repeat: no-repeat;*/
 /*    background-size: 100% 100%;*/
 /*}*/
-body{
+body {
     overflow-y: hidden
 }
 
-.selectionElement{
+.selectionElement {
     left: 50%;
     width: 30%;
     height: 10%;
 }
-.menuDiv{
-    position: absolute;
-    top:25%;
-    left:25%;
-    width: 25%;
-    height: 25%;
-    background-color: yellow;
+
+.cloud{
+    background: url("menu.png");
+    background-size: 100% 100%;
+    width: 60%;
+    height: 40%;
 }
-div{
+.menuDiv {
+    position: relative;
+    top:40%;
+    left:25%;
+    width: 50%;
+    height: 50%;
+}
+
+.inputElement{
+    position: relative;
+    top:25%;
+    left:-10%;
+    width: 40%;
+    max-width: 300px;
+    height: 15%;
+    max-height: 100px;
+}
+
+div {
     user-select: none;
 }
 
-.buttonElement{
-    height: 10%;
-    width: 10%;
+.cat:hover {
+    transform: scale(-1, 1);
+}
+
+.cat:hover .header {
+    transform: scale(-1, 1);
+}
+
+.buttonElement {
+    height: 30px;
+    width: 100px;
+    position: relative;
+    top:25%;
 }
