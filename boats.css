@@ -21,7 +21,7 @@ body {
     height: 10%;
     margin:15px;
     background: 0;
-    background-image: url("scroll.png");
+    background-image: url("scroll-res.png");
     background-size: 100% 100%;
     border: 0;
     outline: unset;
@@ -30,7 +30,7 @@ body {
 
 .cloud{
     vertical-align: middle;
-    background: url("scroll3.png");
+    background: url("scroll3-res.png");
     z-index: 2;
     background-size: 100% 100%;
     width: 50%;
