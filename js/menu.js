@@ -1,9 +1,11 @@
-function addElement(parent, type, text, className) {
+function addElement(parent, type, text, className, id) {
     let element = document.createElement(type);
     element.classList.add(className);
     parent.appendChild(element);
     if (text !== null)
         element.textContent = text;
+    if(id !== null)
+        element.id = "boat";
     return element;
 }
 
@@ -17,7 +19,7 @@ function createDiv() {
     let userNamePartOne = addElement(menuDiv, "p", USERNAME_TEXT_PART_ONE, "menuText");
     let elementInput = addElement(menuDiv, "input", null, "inputElement");
     let userNamePartTwo = addElement(menuDiv, "p", USERNAME_TEXT_PART_TWO, "menuText");
-    let chooseLevelText = addElement(menuDiv, "div", "Enter your name and choose level: ", "text");
+    let chooseLevelText = addElement(menuDiv, "div", "Введи свое имя в поле сверху и выбери уровень: ", "text");
     if(userName != null)
         elementInput.value = userName;
     let levelsDivs = [];
@@ -27,7 +29,6 @@ function createDiv() {
     elementInput.oninput = function(){
         getUserLevels(elementInput, menuDiv, levelsDivs, levelContainerDivs);
     };
-
 
     let button = addElement(menu, "div", BUTTON_TEXT, "buttonElement");
     button.onclick = function () {
@@ -55,7 +56,7 @@ function getUserLevels(elementInput, menuDiv, levelsDivs,levelContainerDivs) {
         levelContainerDivs.push(addElement(menuDiv, "div", null, "meiv"));
         levelsDivs.push(addElement(levelContainerDivs[i], "button", i + 1, "selectionElement"));
         addElement(levelContainerDivs[i], "p",
-            "Family size: " + LEVELS[i].length + ", Level time: " + TIME_LIMIT[i],
+            "Размер семьи: " + LEVELS[i].length + ", время уровня: " + TIME_LIMIT[i] + ". Условия: " + ADD_CONDITIONS[i],
             "menuText");
         levelsDivs[i].onclick = function () {
             level = levelsDivs[i].textContent - 1;
@@ -64,7 +65,7 @@ function getUserLevels(elementInput, menuDiv, levelsDivs,levelContainerDivs) {
     }
 }
 
-function showMenu() {
+function showStartButton() {
     let menuDiv = addElement(document.body, "div", null, "startMenuDiv");
     // addElement(menuDiv, "div", MENU_TEXT, "menuText");
     menuDiv.onclick = function () {
@@ -73,17 +74,13 @@ function showMenu() {
         audio = new Audio('ost.mp3');
         audio.play();
         // audio.muted =
-        setTimeout(getUserName, 9000);
+        setTimeout(showMenu, 9000);
     };
 }
 
-function gameMenu() {
-    let menuDiv = addElement(document.body, "div", null, "gameMenuDiv");
-    addElement(menuDiv, "div", null, "timeDiv");
+function showMenu(userName) {
+    document.body.removeChild(document.getElementById("boat"));
 
-}
-
-function getUserName(userName) {
     if (mainMenu !== null){
         document.body.removeChild(mainMenu);
         mainMenu = null;
@@ -96,7 +93,8 @@ function getUserName(userName) {
     logs = [];
     cats = [];
     frame = 0;
-
+    let boat = addElement(document.body, "div", null, "boat", "boat");
+    boat.classList.add("trans");
     createDiv(AUTHORIZATION_TEXT, userName);
 
 }

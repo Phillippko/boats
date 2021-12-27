@@ -1,0 +1,34 @@
+
+.mute {
+    border: 0;
+    background: url("../img/muted.png") 0 0;
+    height: 50px;
+    background-size: 100% 100%;
+    width: 50px;
+    /*position: absolute;*/
+    top: 50px;
+    left: 50px;
+}
+
+.buttonElement {
+    position: absolute;
+    background-size: 100% 100%;
+    /*background-image: url("stamp.png");*/
+    border: 0;
+    bottom: 15%;
+    right: 15%;
+    width: 15%;
+    height: 15%;
+    text-align: center;
+    line-height: 150px;
+    vertical-align: middle;
+}
+
+.pause{
+    border: 0;
+    background: url("../img/pause.png") 0 0;
+    height: 50px;
+    background-size: 100% 100%;
+    width: 50px;
+    /*position: absolute;*/
+}

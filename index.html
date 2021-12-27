@@ -1,14 +1,26 @@
-<html>
+<html lang="ru">
 <head>
+    <meta charset="utf-8">
 </head>
 <body>
-<link rel="stylesheet" href= "boats.css">
-<img src="boat-resized.png" id = "boat" class="boat">
-<script src = "interactable.js"></script>
-<script src = "log.js"></script>
-<script src = "cat.js"></script>
-<script src = "menu.js"></script>
-<script src = "boats.js"></script>
-<button onclick="muteAudio()" class="mute"></button>
+
+<link rel="stylesheet" href="css/boats.css">
+<link rel="stylesheet" href="css/containers.css">
+<link rel="stylesheet" href="css/buttons.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/elements.css">
+
+<div id="boat" class="boat"></div>
+
+<script src="js/interactable.js"></script>
+<script src="js/log.js"></script>
+<script src="js/cat.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/boats.js"></script>
+
+<div class="buttons">
+    <button onclick="muteAudio()" class="mute"></button>
+    <button onclick="showMenu()" class="pause"></button>
+</div>
 </body>
 </html>

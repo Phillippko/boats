@@ -1,6 +1,5 @@
 class Interactable {
-    constructor(x, y, width, height, image, headerOffsetX, headerOffsetY, headerImage) {
-        this.image = image;
+    constructor(x, y, width, height, headerOffsetX, headerOffsetY, headerImage, headerFlag) {
         this.speed = 0;
         this.x = x;
         this.y = y;
@@ -9,7 +8,8 @@ class Interactable {
         this.offsetX = 0;
         this.offsetY = 0;
         this.createDivs();
-        this.addHeader(headerOffsetX, headerOffsetY, headerImage);
+        if (headerFlag)
+            this.addHeader(headerOffsetX, headerOffsetY, headerImage);
         this.maxFloatingSpeed = -1;
         this.weight = 0;
         this.sumWeight = 0;
@@ -17,12 +17,7 @@ class Interactable {
 
     createDivs() {
         this.div = document.createElement('div');
-        console.log(this.image);
-        this.div.style.background = 0;
-        if (this.image != null)
-            this.div.style.backgroundImage = "url('" + this.image + "')";
-        else
-            this.div.style.backgroundColor = 'red';
+        // this.div.style.background = 0;
         this.div.style.backgroundSize = "100% 100%";
         this.div.style.position = 'absolute';
         document.body.appendChild(this.div);
@@ -32,7 +27,8 @@ class Interactable {
         this.div.style.top = this.y;
     }
 
-    processObject(){}
+    processObject() {
+    }
 
     updatePosition(x, y) {
         this.x = x;
@@ -63,7 +59,7 @@ class Interactable {
         this.header.style.top = offsetY;
         this.div.appendChild(this.header);
         this.header.textContent = "";
-        if(headerImage != null)
+        if (headerImage != null)
             this.header.style.backgroundImage = "url('" + headerImage + "')";
         else this.header.style.background = 0;
 

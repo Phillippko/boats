@@ -1,0 +1,19 @@
+
+.trans {
+    transition: 8s ease-in;
+    transform: scale(2.5) translate(42%, -20%);
+}
+
+.sinking {
+    transition-timing-function: ease-in;
+    transform: scale(2.5) translate(42%, 15%);
+}
+
+
+.cat:hover {
+    transform: scale(-1, 1);
+}
+
+.cat:hover .header {
+    transform: scale(-1, 1);
+}

@@ -1,14 +1,16 @@
 class Log extends Interactable {
-    constructor(x, y, width, height, image, maxCats) {
-        super(x, y, width, height, image, -40, -40, "circle.png");
+    constructor(x, y, width, height, maxCats, headerFlag) {
+        super(x, y, width, height, -40, -40, "img/circle.png", headerFlag);
         this.interactedWith = [];
+        this.div.classList.add("log");
         this.maxCats = maxCats;
     }
 
     processObject(){
         this.sumWeight = 0;
         this.interactedWith.forEach(x => this.sumWeight += x.weight);
-        this.header.textContent = this.sumWeight;
+        if(this.header != null)
+            this.header.textContent = this.sumWeight;
         this.changeSpeed();
         this.updatePosition(this.x, this.y + this.speed);
 

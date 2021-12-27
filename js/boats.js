@@ -8,29 +8,39 @@ const CATS_SPAWN_X = SCREEN_WIDTH * 2 / 3;
 const CAT_IMAGE = "cat.gif";
 const SECONDS_TO_SPAWN = [3, 2, 2];
 const TIME_LIMIT = [35, 20, 10];
+const ADD_CONDITIONS = [
+    "3 кота на досочке",
+    "2 кот на досочке, сумма весов скрыта",
+    "1 кот на досочке, 3 кота на бревне, сумма весов скрыта"];
+
 const IDEAL_WEIGHT = [20];
 const MIN_POINTS = 0;
-const LOG_MAX_CATS = 10;
-const TABLE_MAX_CATS = 2;
+const LOG_MAX_CATS = [10,10,3];
+const TABLE_MAX_CATS = [3,2,1];
 const MAX_POINTS = [100, 100, 100];
 const LEVELS = [
     [2, 10, 3, 6, 5, 4, 6, 4],
-    [2, 10, 3, 6, 5, 4, 6, 4]
+    [2, 10, 3, 6, 5, 4, 6, 4],
+    [14, 8, 12, 6, 9, 9]
 ];
+const ADDITIONAL_CONDITIONS = [
+    null,
+    ["NO_HEADERS"],
+    ["NO_HEADERS"]
+]
 const FRAMERATE = 24;
-const USERNAME_TEXT_PART_ONE = "Once upon a time the ship, taking a family of cats home, started to sink. " +
-    "There were screams of terror, and prayers of forgiveness, and only you, our brave captain ";
-const USERNAME_TEXT_PART_TWO = " remained calm. Now, tell us the story of your heroism! " +
-    "Your task is to balance cats on two logs of wood. Time is restricted, cats live in water too. Good luck! " +
-    "Press and hold left mouse button to drag cats. Numbers near heads are their weights. Also you have a third log, just to temporarily place maximum of 2 cats ";
-const BUTTON_TEXT = "PUSH";
+const USERNAME_TEXT_PART_ONE = "Корабль с семьей котов на борту начал тонуть. И только ты, бравый капитан по имени ";
+const USERNAME_TEXT_PART_TWO = ", остался спокоен. Твоя задача - распределить бедных котиков по двум большим бревнам " +
+    "так, чтобы веса были одинаковыми, а общая сумма была максимальной. Удерживай левую клавишу. чтобы " +
+    "перетаскивать котов. В воде коты быстро тонут, поэтому важно пользоваться третьим бревном для временного размещения " +
+    "котят. Место на нём ограничено, время тоже - корабль тонет быстро! ";
+const BUTTON_TEXT = "Начать!";
 
 //menu settings
 const EL_SIZE = 30
-const AUTHORIZATION_TEXT = "Enter your name";
-const LEVEL_TEXT = "Select level";
-const WIN_GAME_TEXT = "You win! Your points: ";
-const END_GAME_TEXT = "Game over! Sums on big logs are different. Try again!";
+const AUTHORIZATION_TEXT = "Введи свое имя: ";
+const WIN_GAME_TEXT = "Ты справился! Твои очки: ";
+const END_GAME_TEXT = "Ты проиграл! Веса на бревнах отличаются!";
 
 let clicked = null;
 let logs = [];
@@ -58,16 +68,16 @@ function endGameDiv(text) {
 
     let textOneDiv = addElement(div, "div", text, "endMenuText");
 
-    addElement(div, "div", "Your records: ", "endMenuText");
+    addElement(div, "div", "Твои рекорды: ", "endMenuText");
     for (let i = 0; i < LEVELS.length; i++) {
         let points = userPoints[i] == null ? 0 : userPoints[i]
-        addElement(div, "div", "Level " + (i + 1) + ": " + points + " points. ", "endMenuText");
+        addElement(div, "div", "Уровень: " + (i + 1) + ": " + points + " очков. ", "endMenuText");
         console.log("i = " + i);
     }
 
     let button = addElement(div, "div", BUTTON_TEXT, "buttonElement");
     button.onclick = function () {
-        getUserName();
+        showMenu();
     };
     mainMenu = menu;
 }
@@ -101,14 +111,14 @@ async function update() {
 }
 
 
-function addLog(x, y, width, height, image, maxCats) {
-    let object = new Log(x, y, width, height, image, maxCats);
+function addLog(x, y, width, height, maxCats, headersFlag) {
+    let object = new Log(x, y, width, height, maxCats, headersFlag);
     logs.push(object);
     return object;
 }
 
 function addCat(level) {
-    cats.push(new Cat(catSpawn, STARTING_SHIP_LEVEL, 60, 60, LEVELS[level][cat_count], CAT_IMAGE));
+    cats.push(new Cat(catSpawn, STARTING_SHIP_LEVEL, 60, 60, LEVELS[level][cat_count]));
     cat_count++;
 
 }
@@ -134,13 +144,18 @@ async function time() {
     intervalId = setInterval(update, 1000 / FRAMERATE);
 }
 
+function includeHeaders(level){
+    return !ADDITIONAL_CONDITIONS[level].includes("NO_HEADERS");
+}
+
 function startGame(level) {
     document.getElementById("boat").style.transitionDuration = TIME_LIMIT[level] + "s";
     document.getElementById("boat").classList.add("sinking");
     time();
-    let log = addLog(40, SEA_LEVEL - 125, 300, 100, "wood3.png", LOG_MAX_CATS);
-    let log2 = addLog(log.x + log.width + 50, SEA_LEVEL - 150, 300, 100, "wood3.png", LOG_MAX_CATS);
-    addLog(log2.x + log2.width + 200, SEA_LEVEL - 100, 150, 100, "wood3.png", TABLE_MAX_CATS);
+    let headersFlag = includeHeaders(level);
+    let log = addLog(40, SEA_LEVEL - 125, 300, 100, LOG_MAX_CATS[level], headersFlag);
+    let log2 = addLog(log.x + log.width + 50, SEA_LEVEL - 150, 300, 100,  LOG_MAX_CATS[level], headersFlag);
+    addLog(log2.x + log2.width + 200, SEA_LEVEL - 100, 150, 100, TABLE_MAX_CATS[level], headersFlag);
     catSpawn = log2.x + log2.width + 200;
 }
 
@@ -154,9 +169,8 @@ function createUser() {
 
 function main() {
     addWater();
-    document.getElementById("boat").style.bottom = 100;
     shipLevel = STARTING_SHIP_LEVEL;
-    showMenu();
+    showStartButton();
 }
 
 function muteAudio() {
