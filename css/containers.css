@@ -20,12 +20,42 @@
     /*vertical-align: middle;*/
     position: absolute;
     /*top:25%;*/
-    top:15%;
-    padding: 15%;
-    padding-top:0;
+    top: 15%;
+    padding: 5%;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 15%;
     width: 70%;
-    height: 70%;
+    height: 60%;
+    overflow-y: scroll;
+    /*overflow: overlay;*/
 }
+
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: blue orange;
+}
+
+/* для Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+    height: 12px;
+    /*width: 12px;*/
+}
+
+*::-webkit-scrollbar-track {
+    background: orange ;
+    opacity: 0.1;
+    border-radius: 30px;
+
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: darkorange;
+    border-radius: 5px;
+    /*border: 3px solid orange;*/
+}
+
 
 .cloud {
     vertical-align: middle;
@@ -41,11 +71,11 @@
     position: absolute;
 }
 
-.buttons{
-    width:15%;
-    height:10%;
-    display:flex;
+.buttons {
+    width: 15%;
+    height: 10%;
+    display: flex;
     flex-direction: row;
     position: absolute;
-    top:10px;
+    top: 10px;
 }

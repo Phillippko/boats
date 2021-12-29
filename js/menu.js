@@ -56,15 +56,20 @@ function getUserLevels(elementInput, menuDiv, levelsDivs,levelContainerDivs) {
         levelContainerDivs.push(addElement(menuDiv, "div", null, "meiv"));
         levelsDivs.push(addElement(levelContainerDivs[i], "button", i + 1, "selectionElement"));
         addElement(levelContainerDivs[i], "p",
-            "Размер семьи: " + LEVELS[i].length + ", время уровня: " + TIME_LIMIT[i] + ". Условия: " + ADD_CONDITIONS[i],
+            "Размер семьи: " + LEVELS[i].length + ", время уровня: " + TIME_LIMIT[i] + ". " + ADD_CONDITIONS[i],
             "menuText");
         levelContainerDivs[i].onclick = function () {
             levelContainerDivs[level].style.textDecoration = "none";
+            levelContainerDivs[level].style.fontWeight = "normal";
+
             level = levelsDivs[i].textContent - 1;
+            levelContainerDivs[i].style.fontWeight = "bold";
             levelContainerDivs[i].style.textDecoration = "underline";
+
         };
     }
-    levelContainerDivs[0].style.textDecoration = "underline";
+    levelContainerDivs[level].style.textDecoration = "underline";
+    levelContainerDivs[level].style.fontWeight = "bold";
 
 }
 

@@ -1,18 +1,18 @@
-const SCREEN_HEIGHT = document.body.offsetHeight;
-const SCREEN_WIDTH = window.screen.availWidth;
-const SEA_HEIGHT = SCREEN_HEIGHT / 3;
-const SEA_LEVEL = SCREEN_HEIGHT - SEA_HEIGHT;
+let SCREEN_HEIGHT = document.body.offsetHeight;
+let SEA_HEIGHT = SCREEN_HEIGHT / 3;
+let SEA_LEVEL = SCREEN_HEIGHT - SEA_HEIGHT;
 const STARTING_SHIP_LEVEL = -60;
 
 const SECONDS_TO_SPAWN = [3, 2, 2];
 const TIME_LIMIT = [35, 20, 20];
 const ADD_CONDITIONS = [
-    "3 кота на досочке",
-    "2 кота на досочке, сумма весов скрыта",
-    "1 кот на досочке, 3 кота на бревне, сумма весов скрыта"];
+    "Вместимость: 3 кота на дополнительном бревнышке",
+    "Вместимость: 2 кота на дополнительном бревнышке, сумма весов скрыта",
+    "Вместимость: 1 кот на дополнительном бревнышке, 3 кота на бревне, сумма весов скрыта"];
 
-const LOG_MAX_CATS = [10,10,3];
+const LOG_MAX_CATS = [8,8,3];
 const TABLE_MAX_CATS = [3,2,1];
+const MAX_POINTS = [40,40,58];
 const LEVELS = [
     [2, 10, 3, 6, 5, 4, 6, 4],
     [2, 10, 3, 6, 5, 4, 6, 4],
@@ -66,7 +66,7 @@ function endGameDiv(text) {
     addElement(div, "div", "Твои рекорды: ", "endMenuText");
     for (let i = 0; i < LEVELS.length; i++) {
         let points = userPoints[i] == null ? 0 : userPoints[i]
-        addElement(div, "div", "Уровень: " + (i + 1) + ": " + points + " очков. ", "endMenuText");
+        addElement(div, "div", "Уровень: " + (i + 1) + ": " + points + "/" + MAX_POINTS[i] + " очков. ", "endMenuText");
         console.log("i = " + i);
     }
 
@@ -92,6 +92,13 @@ function endGame() {
     endGameDiv(text);
 
 }
+
+window.addEventListener('resize', function(event) {
+    SCREEN_HEIGHT = document.body.offsetHeight;
+    SEA_HEIGHT = SCREEN_HEIGHT / 3;
+    SEA_LEVEL = SCREEN_HEIGHT - SEA_HEIGHT;
+}, true);
+
 
 async function update() {
     shipLevel += SEA_LEVEL / (TIME_LIMIT[level] * FRAMERATE);
