@@ -58,11 +58,14 @@ function getUserLevels(elementInput, menuDiv, levelsDivs,levelContainerDivs) {
         addElement(levelContainerDivs[i], "p",
             "Размер семьи: " + LEVELS[i].length + ", время уровня: " + TIME_LIMIT[i] + ". Условия: " + ADD_CONDITIONS[i],
             "menuText");
-        levelsDivs[i].onclick = function () {
+        levelContainerDivs[i].onclick = function () {
+            levelContainerDivs[level].style.textDecoration = "none";
             level = levelsDivs[i].textContent - 1;
-
+            levelContainerDivs[i].style.textDecoration = "underline";
         };
     }
+    levelContainerDivs[0].style.textDecoration = "underline";
+
 }
 
 function showStartButton() {
