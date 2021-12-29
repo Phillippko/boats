@@ -79,6 +79,17 @@ function showStartButton() {
 }
 
 function showMenu(userName) {
+    for (let i = 0; i < cats.length; i++) {
+        document.body.removeChild(cats[i].div);
+    }
+    for (let i = 0; i < logs.length; i++) {
+        document.body.removeChild(logs[i].div);
+    }
+    cats = [];
+    logs = [];
+    if(intervalId != null)
+        window.clearInterval(intervalId);
+
     document.body.removeChild(document.getElementById("boat"));
 
     if (mainMenu !== null){

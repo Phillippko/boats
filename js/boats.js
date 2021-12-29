@@ -1,30 +1,25 @@
-const SCREEN_HEIGHT = window.screen.height;
+const SCREEN_HEIGHT = document.body.offsetHeight;
 const SCREEN_WIDTH = window.screen.availWidth;
 const SEA_HEIGHT = SCREEN_HEIGHT / 3;
 const SEA_LEVEL = SCREEN_HEIGHT - SEA_HEIGHT;
 const STARTING_SHIP_LEVEL = -60;
 
-const CATS_SPAWN_X = SCREEN_WIDTH * 2 / 3;
-const CAT_IMAGE = "cat.gif";
 const SECONDS_TO_SPAWN = [3, 2, 2];
-const TIME_LIMIT = [35, 20, 10];
+const TIME_LIMIT = [35, 20, 20];
 const ADD_CONDITIONS = [
     "3 кота на досочке",
-    "2 кот на досочке, сумма весов скрыта",
+    "2 кота на досочке, сумма весов скрыта",
     "1 кот на досочке, 3 кота на бревне, сумма весов скрыта"];
 
-const IDEAL_WEIGHT = [20];
-const MIN_POINTS = 0;
 const LOG_MAX_CATS = [10,10,3];
 const TABLE_MAX_CATS = [3,2,1];
-const MAX_POINTS = [100, 100, 100];
 const LEVELS = [
     [2, 10, 3, 6, 5, 4, 6, 4],
     [2, 10, 3, 6, 5, 4, 6, 4],
     [14, 8, 12, 6, 9, 9]
 ];
 const ADDITIONAL_CONDITIONS = [
-    null,
+    [],
     ["NO_HEADERS"],
     ["NO_HEADERS"]
 ]
@@ -37,7 +32,6 @@ const USERNAME_TEXT_PART_TWO = ", остался спокоен. Твоя зад
 const BUTTON_TEXT = "Начать!";
 
 //menu settings
-const EL_SIZE = 30
 const AUTHORIZATION_TEXT = "Введи свое имя: ";
 const WIN_GAME_TEXT = "Ты справился! Твои очки: ";
 const END_GAME_TEXT = "Ты проиграл! Веса на бревнах отличаются!";
@@ -48,6 +42,7 @@ let cats = [];
 let frame = 0;
 let catSpawn;
 let audio;
+let intervalId;
 
 document.body.addEventListener('mousemove', e => {
     if (clicked != null)
@@ -126,16 +121,6 @@ function addCat(level) {
 let
     cat_count = 0, shipLevel;
 
-function addWater() {
-    let div = document.createElement("div");
-    document.body.appendChild(div);
-    div.style.position = "absolute";
-    div.style.top = SEA_LEVEL + "";
-    div.style.width = "100%";
-    div.classList.add("water");
-    div.style.height = screen.height;
-}
-
 let mainMenu = null;
 main();
 
@@ -168,7 +153,6 @@ function createUser() {
 }
 
 function main() {
-    addWater();
     shipLevel = STARTING_SHIP_LEVEL;
     showStartButton();
 }
